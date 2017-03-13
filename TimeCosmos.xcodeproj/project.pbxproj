@@ -19,6 +19,8 @@
 		DF2B3EF51E76654000FBE4C5 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2B3EF41E76654000FBE4C5 /* InterfaceController.swift */; };
 		DF2B3EF71E76654000FBE4C5 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2B3EF61E76654000FBE4C5 /* ExtensionDelegate.swift */; };
 		DF2B3EF91E76654000FBE4C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF2B3EF81E76654000FBE4C5 /* Assets.xcassets */; };
+		DF86194F1E766C8F0051454A /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = DF86194E1E766C8F0051454A /* GameScene.sks */; };
+		DF8619511E766C9B0051454A /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8619501E766C9B0051454A /* GameScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +82,8 @@
 		DF2B3EF61E76654000FBE4C5 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		DF2B3EF81E76654000FBE4C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DF2B3EFA1E76654000FBE4C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF86194E1E766C8F0051454A /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		DF8619501E766C9B0051454A /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +151,8 @@
 			isa = PBXGroup;
 			children = (
 				DF2B3EF41E76654000FBE4C5 /* InterfaceController.swift */,
+				DF86194E1E766C8F0051454A /* GameScene.sks */,
+				DF8619501E766C9B0051454A /* GameScene.swift */,
 				DF2B3EF61E76654000FBE4C5 /* ExtensionDelegate.swift */,
 				DF2B3EF81E76654000FBE4C5 /* Assets.xcassets */,
 				DF2B3EFA1E76654000FBE4C5 /* Info.plist */,
@@ -281,6 +287,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF86194F1E766C8F0051454A /* GameScene.sks in Resources */,
 				DF2B3EF91E76654000FBE4C5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -301,6 +308,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF8619511E766C9B0051454A /* GameScene.swift in Sources */,
 				DF2B3EF71E76654000FBE4C5 /* ExtensionDelegate.swift in Sources */,
 				DF2B3EF51E76654000FBE4C5 /* InterfaceController.swift in Sources */,
 			);
@@ -557,6 +565,7 @@
 				DF2B3EFF1E76654000FBE4C5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DF2B3F011E76654000FBE4C5 /* Build configuration list for PBXNativeTarget "TimeCosmos WatchKit App" */ = {
 			isa = XCConfigurationList;
@@ -565,6 +574,7 @@
 				DF2B3F031E76654000FBE4C5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DF2B3F051E76654000FBE4C5 /* Build configuration list for PBXNativeTarget "TimeCosmos" */ = {
 			isa = XCConfigurationList;
@@ -573,6 +583,7 @@
 				DF2B3F071E76654000FBE4C5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

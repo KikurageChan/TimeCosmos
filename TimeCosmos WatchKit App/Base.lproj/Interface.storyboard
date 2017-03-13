@@ -16,6 +16,9 @@
                     <items>
                         <spriteKitScene alignment="left" id="LbX-gW-cKz"/>
                     </items>
+                    <connections>
+                        <outlet property="skInterface" destination="LbX-gW-cKz" id="I01-C9-pqT"/>
+                    </connections>
                 </controller>
             </objects>
         </scene>
