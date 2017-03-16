@@ -14,13 +14,27 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="TimeCosmos_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <spriteKitScene alignment="left" id="LbX-gW-cKz"/>
+                        <spriteKitScene width="1" height="178" alignment="center" id="LbX-gW-cKz">
+                            <gestureRecognizers>
+                                <tapGestureRecognizer id="KV2-QE-zbe">
+                                    <connections>
+                                        <action selector="tapHandle:" destination="AgC-eL-Hgc" id="7IH-nE-HhN"/>
+                                    </connections>
+                                </tapGestureRecognizer>
+                                <panGestureRecognizer id="Juo-5Y-SuP">
+                                    <connections>
+                                        <action selector="panHandle:" destination="AgC-eL-Hgc" id="qoM-ER-mbu"/>
+                                    </connections>
+                                </panGestureRecognizer>
+                            </gestureRecognizers>
+                        </spriteKitScene>
                     </items>
                     <connections>
                         <outlet property="skInterface" destination="LbX-gW-cKz" id="I01-C9-pqT"/>
                     </connections>
                 </controller>
             </objects>
+            <point key="canvasLocation" x="32" y="73"/>
         </scene>
     </scenes>
 </document>

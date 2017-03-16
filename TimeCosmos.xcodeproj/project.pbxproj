@@ -19,6 +19,7 @@
 		DF2B3EF51E76654000FBE4C5 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2B3EF41E76654000FBE4C5 /* InterfaceController.swift */; };
 		DF2B3EF71E76654000FBE4C5 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2B3EF61E76654000FBE4C5 /* ExtensionDelegate.swift */; };
 		DF2B3EF91E76654000FBE4C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF2B3EF81E76654000FBE4C5 /* Assets.xcassets */; };
+		DF3D10891E77D4B30044DDFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF2B3EF81E76654000FBE4C5 /* Assets.xcassets */; };
 		DF86194F1E766C8F0051454A /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = DF86194E1E766C8F0051454A /* GameScene.sks */; };
 		DF8619511E766C9B0051454A /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8619501E766C9B0051454A /* GameScene.swift */; };
 /* End PBXBuildFile section */
@@ -279,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF2B3EE91E76653F00FBE4C5 /* Assets.xcassets in Resources */,
+				DF3D10891E77D4B30044DDFA /* Assets.xcassets in Resources */,
 				DF2B3EE71E76653F00FBE4C5 /* Interface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
