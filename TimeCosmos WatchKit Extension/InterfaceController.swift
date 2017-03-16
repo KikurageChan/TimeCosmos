@@ -21,8 +21,8 @@ class InterfaceController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         if let gameScene = GameScene(fileNamed: "GameScene") {
-            print(skInterface.preferredFramesPerSecond)
             scene = gameScene
+            scene.size = contentFrame.size
             scene.scaleMode = .aspectFill
             skInterface.presentScene(gameScene)
         }
@@ -37,7 +37,6 @@ class InterfaceController: WKInterfaceController {
         let point = sender.locationInObject()
         scene.panAction(point)
     }
-    
     
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
