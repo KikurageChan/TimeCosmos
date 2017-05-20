@@ -21,20 +21,15 @@ class GameScene: SKScene {
     
     var gameEngine: SKSpriteNode!
     var playerNode: SKSpriteNode!
+    var scoreNode: SKLabelNode!
     var bombTextureNames: [String] = ["bomb0", "bomb1", "bomb2"]
     var bombTextures: [SKTexture] = []
-//    var nodeCountLabel: SKLabelNode!
     
     override func sceneDidLoad() {
         super.sceneDidLoad()
+        //シーン(ワールド)の設定
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = CGVector(dx: 0, dy: 0)
-        
-//        nodeCountLabel = SKLabelNode(text: "0")
-//        nodeCountLabel.zPosition = 100
-//        nodeCountLabel.color = UIColor.white
-//        nodeCountLabel.position = CGPoint(x: 50, y: 50)
-//        addChild(nodeCountLabel)
         
         for bombTextureName in bombTextureNames {
             let texture = SKTexture(imageNamed: bombTextureName)
@@ -55,25 +50,25 @@ class GameScene: SKScene {
             backgroundNode.run(backgroundAction)
             
         }
-        
         gameEngine = childNode(withName: "GameEngine") as! SKSpriteNode
         playerNode = childNode(withName: "Player") as! SKSpriteNode
+        scoreNode = childNode(withName: "Score") as! SKLabelNode
+        
+        //プレイヤーNode
         playerNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 16, height: 16))
         playerNode.physicsBody?.categoryBitMask = CollisionType.player
-        //        playerNode.physicsBody?.collisionBitMask = CollisionType.enemy
         playerNode.physicsBody?.isDynamic = false
         playerNode.physicsBody?.contactTestBitMask = CollisionType.enemy
         playerNode.position = CGPoint(x: frame.size.width * 0.5, y: playerNode.size.height * 2.5)
         playerNode.zPosition = 10
+        //ロックオンNode
         let lockOnNode = SKSpriteNode(imageNamed: "LockON")
         lockOnNode.setScale(3)
         lockOnNode.zPosition = 10
         lockOnNode.position = CGPoint(x: 0, y: size.height * 1.5)
         playerNode.addChild(lockOnNode)
-        
-        //弾を生成して無限に発射するAction
+        //バレットNode
         let bulletTexture = SKTexture(imageNamed: "Bullet")
-        
         let bulletCreateAction = SKAction.run {
             let bulletNode = SKSpriteNode(texture: bulletTexture)
             bulletNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 2, height: 6))
@@ -87,15 +82,12 @@ class GameScene: SKScene {
             })
         }
         playerNode.run(SKAction.repeatForever(SKAction.sequence([bulletCreateAction, SKAction.wait(forDuration: 0.3)])))
-        ////
-        
+        //エネミーNode
         let enemyTexture = SKTexture(imageNamed: "Enemy1")
-        
         let enemyCreateAction = SKAction.run {
             let enemyNode = SKSpriteNode(texture: enemyTexture)
             enemyNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 13, height: 12))
             enemyNode.physicsBody?.categoryBitMask = CollisionType.enemy
-            //            enemyNode.physicsBody?.collisionBitMask = CollisionType.player | CollisionType.PlayerBullet
             enemyNode.physicsBody?.contactTestBitMask = CollisionType.player | CollisionType.PlayerBullet
             enemyNode.position.x = CGFloat(Int.createRandom(Int(self.frame.size.width) - Int(enemyNode.size.width * 0.5)) + Int(enemyNode.size.width * 0.5))
             enemyNode.position.y = self.frame.size.height + enemyNode.size.height * 0.5
@@ -108,17 +100,8 @@ class GameScene: SKScene {
         gameEngine.run(SKAction.repeatForever(SKAction.sequence([enemyCreateAction, SKAction.wait(forDuration: 1)])))
     }
     
-    func tapAction(_ point: CGPoint) {
-        if point.x <= frame.origin.x + (playerNode.size.width * 0.5) || point.x >= size.width - (playerNode.size.width * 0.5) {
-            return
-        }
-        playerNode.position.x = point.x
-    }
-    
     func panAction(_ point: CGPoint) {
-        if point.x <= frame.origin.x + (playerNode.size.width * 0.5) || point.x >= size.width - (playerNode.size.width * 0.5) {
-            return
-        }
+        if point.x <= frame.origin.x + (playerNode.size.width * 0.5) || point.x >= size.width - (playerNode.size.width * 0.5) { return }
         playerNode.position.x = point.x
     }
 }
@@ -135,13 +118,12 @@ extension GameScene: SKPhysicsContactDelegate {
             contact.bodyA.node?.run(bombAnimation, completion: {
                 self.removeChildren(in: [nodeA])
             })
-        }else if contact.bodyB.categoryBitMask == CollisionType.enemy && contact.bodyA.categoryBitMask == CollisionType.PlayerBullet {
+        } else if contact.bodyB.categoryBitMask == CollisionType.enemy && contact.bodyA.categoryBitMask == CollisionType.PlayerBullet {
             removeChildren(in: [nodeA])
             contact.bodyB.contactTestBitMask = CollisionType.none
             contact.bodyB.node?.run(bombAnimation, completion: {
                 self.removeChildren(in: [nodeB])
             })
-            
         }
     }
 }

@@ -16,7 +16,6 @@ class InterfaceController: WKInterfaceController {
     @IBOutlet var skInterface: WKInterfaceSKScene!
     
     var scene: GameScene!
-    var touchPoint = CGPoint.zero
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
@@ -26,11 +25,6 @@ class InterfaceController: WKInterfaceController {
             scene.scaleMode = .aspectFill
             skInterface.presentScene(gameScene)
         }
-    }
-    
-    @IBAction func tapHandle(_ sender: WKTapGestureRecognizer) {
-        touchPoint = sender.locationInObject()
-        scene.tapAction(touchPoint)
     }
     
     @IBAction func panHandle(_ sender: WKPanGestureRecognizer) {
