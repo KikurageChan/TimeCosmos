@@ -17,17 +17,30 @@ struct CollisionType {
     static let none: UInt32 = 1 << 3
 }
 
+struct ZPositionType {
+    static let background: CGFloat = -10
+    static let node: CGFloat = 1
+    static let ui: CGFloat = 10
+}
+
 class GameScene: SKScene {
     
     var gameEngine: SKSpriteNode!
     var playerNode: SKSpriteNode!
     var scoreNode: SKLabelNode!
+    var gameOverNode: SKLabelNode!
     var bombTextureNames: [String] = ["bomb0", "bomb1", "bomb2"]
     var bombTextures: [SKTexture] = []
     
+    var score = 0 {
+        didSet {
+            scoreNode.text = "Score: \(score)"
+        }
+    }
+    var isGameOver = false
+    
     override func sceneDidLoad() {
         super.sceneDidLoad()
-        //シーン(ワールド)の設定
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         
@@ -44,27 +57,26 @@ class GameScene: SKScene {
         for i in 0 ..< 3 {
             let backgroundNode = SKSpriteNode(texture: backgroundTexture)
             backgroundNode.size = CGSize(width: size.width, height: size.height)
-            backgroundNode.zPosition = -10
+            backgroundNode.zPosition = ZPositionType.background
             backgroundNode.position = CGPoint(x: size.width * 0.5, y: CGFloat(i) * backgroundNode.size.height)
             addChild(backgroundNode)
             backgroundNode.run(backgroundAction)
-            
         }
         gameEngine = childNode(withName: "GameEngine") as! SKSpriteNode
         playerNode = childNode(withName: "Player") as! SKSpriteNode
         scoreNode = childNode(withName: "Score") as! SKLabelNode
+        gameOverNode = childNode(withName: "GameOver") as! SKLabelNode
         
         //プレイヤーNode
         playerNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 16, height: 16))
         playerNode.physicsBody?.categoryBitMask = CollisionType.player
         playerNode.physicsBody?.isDynamic = false
-        playerNode.physicsBody?.contactTestBitMask = CollisionType.enemy
-        playerNode.position = CGPoint(x: frame.size.width * 0.5, y: playerNode.size.height * 2.5)
-        playerNode.zPosition = 10
+        playerNode.position = CGPoint(x: frame.size.width * 0.5, y: playerNode.size.height * 2)
+        playerNode.zPosition = ZPositionType.node
         //ロックオンNode
         let lockOnNode = SKSpriteNode(imageNamed: "LockON")
         lockOnNode.setScale(3)
-        lockOnNode.zPosition = 10
+        lockOnNode.zPosition = ZPositionType.node
         lockOnNode.position = CGPoint(x: 0, y: size.height * 1.5)
         playerNode.addChild(lockOnNode)
         //バレットNode
@@ -73,7 +85,7 @@ class GameScene: SKScene {
             let bulletNode = SKSpriteNode(texture: bulletTexture)
             bulletNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 2, height: 6))
             bulletNode.physicsBody?.categoryBitMask = CollisionType.PlayerBullet
-            bulletNode.zPosition = 9
+            bulletNode.zPosition = ZPositionType.node
             bulletNode.position = CGPoint(x: self.playerNode.position.x, y: self.playerNode.position.y + self.playerNode.size.height * 0.5)
             let moveUpAction = SKAction.moveBy(x: 0, y: self.size.height * 1.5, duration: 0.8)
             self.addChild(bulletNode)
@@ -101,6 +113,7 @@ class GameScene: SKScene {
     }
     
     func panAction(_ point: CGPoint) {
+        if isGameOver { return }
         if point.x <= frame.origin.x + (playerNode.size.width * 0.5) || point.x >= size.width - (playerNode.size.width * 0.5) { return }
         playerNode.position.x = point.x
     }
@@ -111,19 +124,28 @@ extension GameScene: SKPhysicsContactDelegate {
         guard let nodeA = contact.bodyA.node else { return }
         guard let nodeB = contact.bodyB.node else { return }
         let bombAnimation = SKAction.animate(with: bombTextures, timePerFrame: 0.1)
-        //bodyAがEnemyの場合
         if contact.bodyA.categoryBitMask == CollisionType.enemy && contact.bodyB.categoryBitMask == CollisionType.PlayerBullet {
             removeChildren(in: [nodeB])
             contact.bodyA.contactTestBitMask = CollisionType.none
             contact.bodyA.node?.run(bombAnimation, completion: {
                 self.removeChildren(in: [nodeA])
             })
+            score += 1
         } else if contact.bodyB.categoryBitMask == CollisionType.enemy && contact.bodyA.categoryBitMask == CollisionType.PlayerBullet {
             removeChildren(in: [nodeA])
             contact.bodyB.contactTestBitMask = CollisionType.none
             contact.bodyB.node?.run(bombAnimation, completion: {
                 self.removeChildren(in: [nodeB])
             })
+            score += 1
+        }
+        if contact.bodyA.categoryBitMask == CollisionType.enemy && contact.bodyB.categoryBitMask == CollisionType.player ||
+                contact.bodyB.categoryBitMask == CollisionType.enemy && contact.bodyA.categoryBitMask == CollisionType.player {
+            gameOverNode.position = CGPoint(x: frame.size.width * 0.5, y: frame.size.height * 0.5)
+            gameOverNode.zPosition = ZPositionType.ui
+            gameOverNode.isHidden = false
+            self.isPaused = true
+            isGameOver = true
         }
     }
 }

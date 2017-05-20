@@ -14,7 +14,7 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="TimeCosmos_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <spriteKitScene width="136" height="178" alignment="center" id="LbX-gW-cKz">
+                        <spriteKitScene alignment="center" id="LbX-gW-cKz">
                             <gestureRecognizers>
                                 <panGestureRecognizer id="Juo-5Y-SuP">
                                     <connections>
