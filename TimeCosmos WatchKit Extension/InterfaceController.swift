@@ -25,7 +25,7 @@ class InterfaceController: WKInterfaceController {
     }
     
     @IBAction func panHandle(_ sender: WKPanGestureRecognizer) {
-        let point = sender.locationInObject()
+        let point = sender.locationInView()
         scene?.panAction(point)
     }
     
@@ -37,5 +37,14 @@ class InterfaceController: WKInterfaceController {
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
+    }
+}
+
+extension WKGestureRecognizer {
+    //シーンのアンカーポイントはデフォルトの(x: 0, y: 0)を利用
+    func locationInView() -> CGPoint {
+        let location = locationInObject()
+        let bounds = objectBounds()
+        return CGPoint(x: location.x, y: bounds.maxY - location.y)
     }
 }
