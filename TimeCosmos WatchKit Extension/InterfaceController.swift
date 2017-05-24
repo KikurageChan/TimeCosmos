@@ -13,20 +13,20 @@ class InterfaceController: WKInterfaceController {
 
     @IBOutlet var skInterface: WKInterfaceSKScene!
     
-    var scene: GameScene!
+    var scene: GameScene?
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         if let gameScene = GameScene(fileNamed: "GameScene") {
             scene = gameScene
-            scene.scaleMode = .aspectFill
+            scene?.scaleMode = .aspectFill
             skInterface.presentScene(gameScene)
         }
     }
     
     @IBAction func panHandle(_ sender: WKPanGestureRecognizer) {
         let point = sender.locationInObject()
-        scene.panAction(point)
+        scene?.panAction(point)
     }
     
     override func willActivate() {
