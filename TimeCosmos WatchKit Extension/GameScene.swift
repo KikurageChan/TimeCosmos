@@ -11,10 +11,10 @@ import SpriteKit
 import WatchKit
 
 struct CollisionType {
-    static let player: UInt32 = 1 << 0
-    static let PlayerBullet: UInt32 = 1 << 1
-    static let enemy: UInt32 = 1 << 2
-    static let none: UInt32 = 1 << 3
+    static let none: UInt32 = 1 << 0
+    static let player: UInt32 = 1 << 1
+    static let PlayerBullet: UInt32 = 1 << 2
+    static let enemy: UInt32 = 1 << 3
 }
 
 struct ZPositionType {
@@ -70,7 +70,7 @@ class GameScene: SKScene {
         //プレイヤーNode
         playerNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 16, height: 16))
         playerNode.physicsBody?.categoryBitMask = CollisionType.player
-        playerNode.physicsBody?.isDynamic = false
+        playerNode.physicsBody?.collisionBitMask = CollisionType.none
         playerNode.position = CGPoint(x: frame.size.width * 0.5, y: playerNode.size.height * 2)
         playerNode.zPosition = ZPositionType.node
         //ロックオンNode
@@ -100,6 +100,7 @@ class GameScene: SKScene {
             let enemyNode = SKSpriteNode(texture: enemyTexture)
             enemyNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 13, height: 12))
             enemyNode.physicsBody?.categoryBitMask = CollisionType.enemy
+            enemyNode.physicsBody?.collisionBitMask = CollisionType.none
             enemyNode.physicsBody?.contactTestBitMask = CollisionType.player | CollisionType.PlayerBullet
             enemyNode.position.x = CGFloat(Int.createRandom(Int(self.frame.size.width) - Int(enemyNode.size.width * 0.5)) + Int(enemyNode.size.width * 0.5))
             enemyNode.position.y = self.frame.size.height + enemyNode.size.height * 0.5

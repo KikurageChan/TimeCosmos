@@ -9,8 +9,6 @@
 import WatchKit
 import Foundation
 
-
-
 class InterfaceController: WKInterfaceController {
 
     @IBOutlet var skInterface: WKInterfaceSKScene!
@@ -25,6 +23,7 @@ class InterfaceController: WKInterfaceController {
             scene.scaleMode = .aspectFill
             skInterface.presentScene(gameScene)
         }
+        print("contentFrame = \(contentFrame)")
     }
     
     @IBAction func panHandle(_ sender: WKPanGestureRecognizer) {
