@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gQi-xY-liO">
     <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11508"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="12029"/>
     </dependencies>
     <scenes>
         <!--Interface Controller-->
@@ -14,10 +14,56 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="TimeCosmos_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <spriteKitScene alignment="left" id="LbX-gW-cKz"/>
+                        <spriteKitScene alignment="center" id="LbX-gW-cKz">
+                            <gestureRecognizers>
+                                <panGestureRecognizer id="Juo-5Y-SuP">
+                                    <connections>
+                                        <action selector="panHandle:" destination="AgC-eL-Hgc" id="qoM-ER-mbu"/>
+                                    </connections>
+                                </panGestureRecognizer>
+                            </gestureRecognizers>
+                        </spriteKitScene>
+                    </items>
+                    <connections>
+                        <outlet property="skInterface" destination="LbX-gW-cKz" id="I01-C9-pqT"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="78" y="-138"/>
+        </scene>
+        <!--Interface Controller-->
+        <scene sceneID="7NA-py-7vs">
+            <objects>
+                <controller id="aGC-kp-QCs">
+                    <items>
+                        <imageView alignment="left" image="how" id="bR1-Xk-veQ"/>
                     </items>
                 </controller>
             </objects>
+            <point key="canvasLocation" x="90" y="220"/>
+        </scene>
+        <!--Interface Controller-->
+        <scene sceneID="RDD-1a-D9M">
+            <objects>
+                <controller contentMode="scaleAspectFit" id="gQi-xY-liO">
+                    <items>
+                        <label width="1" height="0.59999999999999998" alignment="center" text="SpaceGame" textAlignment="center" id="xFu-SV-lY5">
+                            <fontDescription key="font" type="system" pointSize="20"/>
+                        </label>
+                        <button width="1" height="0.20000000000000001" alignment="left" verticalAlignment="center" title="スタート" id="Tj0-0a-wbJ">
+                            <connections>
+                                <segue destination="AgC-eL-Hgc" kind="modal" id="uSP-EN-uy8"/>
+                            </connections>
+                        </button>
+                        <button width="1" height="0.20000000000000001" alignment="left" verticalAlignment="bottom" title="あそびかた" id="gdQ-jt-sM9">
+                            <connections>
+                                <segue destination="aGC-kp-QCs" kind="push" id="Ogw-yn-pjk"/>
+                            </connections>
+                        </button>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="-221" y="71"/>
         </scene>
     </scenes>
 </document>

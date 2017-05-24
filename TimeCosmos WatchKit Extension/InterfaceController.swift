@@ -9,13 +9,24 @@
 import WatchKit
 import Foundation
 
-
 class InterfaceController: WKInterfaceController {
 
+    @IBOutlet var skInterface: WKInterfaceSKScene!
+    
+    var scene: GameScene!
+    
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        
-        // Configure interface objects here.
+        if let gameScene = GameScene(fileNamed: "GameScene") {
+            scene = gameScene
+            scene.scaleMode = .aspectFill
+            skInterface.presentScene(gameScene)
+        }
+    }
+    
+    @IBAction func panHandle(_ sender: WKPanGestureRecognizer) {
+        let point = sender.locationInObject()
+        scene.panAction(point)
     }
     
     override func willActivate() {
@@ -27,5 +38,4 @@ class InterfaceController: WKInterfaceController {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
     }
-
 }
