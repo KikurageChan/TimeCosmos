@@ -57,7 +57,6 @@ class GameScene: SKScene {
         
         for i in 0 ..< 3 {
             let backgroundNode = SKSpriteNode(texture: backgroundTexture)
-            print(size)
             backgroundNode.size = CGSize(width: size.width, height: size.height)
             backgroundNode.zPosition = ZPositionType.background
             backgroundNode.position = CGPoint(x: size.width * 0.5, y: CGFloat(i) * backgroundNode.size.height)
