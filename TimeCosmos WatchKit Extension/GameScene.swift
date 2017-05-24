@@ -6,7 +6,6 @@
 //  Copyright © 2017年 KikurageChan. All rights reserved.
 //
 
-import Foundation
 import SpriteKit
 import WatchKit
 
@@ -41,6 +40,7 @@ class GameScene: SKScene {
     
     override func sceneDidLoad() {
         super.sceneDidLoad()
+        
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         
@@ -49,6 +49,7 @@ class GameScene: SKScene {
             bombTextures.append(texture)
         }
         
+        //背景のテクスチャを設定
         let backgroundTexture = SKTexture(imageNamed: "Background")
         let backgroundMoveAction = SKAction.moveBy(x: 0, y: -frame.size.height, duration: 5)
         let backgroundResetAction = SKAction.moveBy(x: 0, y: frame.size.height, duration: 0)
@@ -56,17 +57,18 @@ class GameScene: SKScene {
         
         for i in 0 ..< 3 {
             let backgroundNode = SKSpriteNode(texture: backgroundTexture)
+            print(size)
             backgroundNode.size = CGSize(width: size.width, height: size.height)
             backgroundNode.zPosition = ZPositionType.background
             backgroundNode.position = CGPoint(x: size.width * 0.5, y: CGFloat(i) * backgroundNode.size.height)
             addChild(backgroundNode)
             backgroundNode.run(backgroundAction)
         }
+        //sksファイルからNodeを取得
         gameEngine = childNode(withName: "GameEngine") as! SKSpriteNode
         playerNode = childNode(withName: "Player") as! SKSpriteNode
         scoreNode = childNode(withName: "Score") as! SKLabelNode
         gameOverNode = childNode(withName: "GameOver") as! SKLabelNode
-        
         //プレイヤーNode
         playerNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 16, height: 16))
         playerNode.physicsBody?.categoryBitMask = CollisionType.player
@@ -110,6 +112,7 @@ class GameScene: SKScene {
                 enemyNode.removeFromParent()
             })
         }
+        gameEngine.isHidden = true
         gameEngine.run(SKAction.repeatForever(SKAction.sequence([enemyCreateAction, SKAction.wait(forDuration: 1)])))
     }
     

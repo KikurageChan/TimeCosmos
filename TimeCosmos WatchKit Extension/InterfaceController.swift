@@ -19,11 +19,9 @@ class InterfaceController: WKInterfaceController {
         super.awake(withContext: context)
         if let gameScene = GameScene(fileNamed: "GameScene") {
             scene = gameScene
-            scene.size = contentFrame.size
             scene.scaleMode = .aspectFill
             skInterface.presentScene(gameScene)
         }
-        print("contentFrame = \(contentFrame)")
     }
     
     @IBAction func panHandle(_ sender: WKPanGestureRecognizer) {
